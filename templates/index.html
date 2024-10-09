@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeopardy Game</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 20px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        td a {
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jeopardy Game</h1>
+    
+    <table>
+        <tr>
+            {% for category in categories %}
+                <th>{{ category.category }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for category in categories %}
+                <td>
+                    {% for question in category.questions %}
+                        {% if not question.asked %}
+                            <a href="{{ url_for('show_question', cat_id=loop.index0, q_id=loop.index0) }}">${{ question.value }}</a><br>
+                        {% else %}
+                            <del>${{ question.value }}</del><br>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            {% endfor %}
+        </tr>
+    </table>
+</body>
+</html>
